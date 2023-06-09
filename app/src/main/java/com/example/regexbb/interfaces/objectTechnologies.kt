@@ -12,8 +12,8 @@ interface objectTechnologies {
     @GET("objectTechnologiesEndpoint")
     suspend fun getAllObjectTechnologies(): Response<List<ObjectTechnologies>>
 
-    @GET("objectTechnologiesEndpoint/technologies")
-    suspend fun getTechnologyIdsByDObjectId(@Query("dObjectId") dObjectId: String): Response<List<ObjectTechnologies>>
+    @GET("objectTechnologiesEndpoint/technologies/{dObjectId}")
+    suspend fun getTechObj(@Path("dObjectId") dObjectId: String): Response<List<ObjectTechnologies>>
 
     @POST("objectTechnologiesEndpoint")
     suspend fun createObjectTechnologies(@Body objectTechnologies: ObjectTechnologies): Response<ObjectTechnologies>

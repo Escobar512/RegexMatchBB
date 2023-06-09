@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.regexbb.R
 
-class cardsAdapter(private val context: Context, private val cardList: List<cards>) : BaseAdapter() {
+class cardsOfferAdapter(private val context: Context, private val cardList: List<cardsOffer>) : BaseAdapter() {
 
     private val boundViews = mutableMapOf<Int, View>() // Store the bound views and their positions
 
@@ -31,14 +31,14 @@ class cardsAdapter(private val context: Context, private val cardList: List<card
 
 
         Glide.with(context)
-            .load(card.getImageUrl())
+            .load(card.getImageUrl()[0].imageUrl)
             .into(view.findViewById<ImageView>(R.id.image))
 
         boundViews[position] = view
         return view
     }
 
-    override fun getItem(position: Int): cards {
+    override fun getItem(position: Int): cardsOffer {
         return cardList[position]
     }
 

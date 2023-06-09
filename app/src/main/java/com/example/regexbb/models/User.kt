@@ -4,10 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 class User {
 
-    @SerializedName("data")
-    var data: List<userAtom>? = null
-
-    inner class userAtom {
         @SerializedName("userName")
         var userName: String = ""
 
@@ -19,5 +15,4 @@ class User {
 
         @SerializedName("isLooking")
         var isLooking: Boolean = false
-    }
 }
