@@ -2,7 +2,9 @@ package com.example.regexbb.models
 
 import com.google.gson.annotations.SerializedName
 
-class ObjectTechnologies {
+import java.io.Serializable
+
+class ObjectTechnologies : Serializable {
     @SerializedName("technologyId")
     var technologyId: String = ""
 

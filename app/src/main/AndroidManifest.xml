@@ -14,6 +14,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
+
             android:name=".Login"
             android:exported="true"
             android:label="@string/app_name">
@@ -23,6 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".verLooker"
+            android:label="Looker"
+             />
+
+        <activity
+            android:name=".verOffer"
+            android:label="Offer"
+            />
+
+
         <activity
             android:name=".MainActivity"
             android:label="Ofertas"
@@ -35,6 +48,7 @@
             android:name=".offerList"
             android:label="Lista de ofertas"
         />
+
     </application>
 
 </manifest>

@@ -10,9 +10,11 @@ class User {
     @SerializedName("password")
     var password: String = ""
 
+
     @SerializedName("email")
     var email: String = ""
 
     @SerializedName("isLooking")
     var isLooking: Boolean = false
+
 }

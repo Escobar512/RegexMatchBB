@@ -1,50 +1,39 @@
 package com.example.regexbb
 
 import android.app.Activity
-import android.app.Application
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 
 
 import android.widget.Toast
 import androidx.room.Room
-import com.example.data.dao.LookingProfileDAO
 import com.example.data.database.RegexDatabase
-import com.example.data.entity.LookingProfile
+import com.example.regexbb.interfaces.objectTechnologies
 import com.example.regexbb.models.OfferSwipe
-import com.example.regexbb.R
-import com.example.regexbb.cards
-import com.example.regexbb.cardsAdapter
 import com.example.regexbb.interfaces.offer
 import com.example.regexbb.interfaces.offerSwipe
 import com.example.regexbb.interfaces.profileImages
-import com.example.regexbb.interfaces.user
+import com.example.regexbb.models.ObjectTechnologies
 import com.example.regexbb.models.Offer
 import com.example.regexbb.models.ProfileImages
-import com.example.regexbb.models.User
 import com.example.regexbb.retrofit.retrofitClient
-import com.example.regexbb.sockets.SocketHandler
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
-import io.socket.client.IO
 import kotlinx.coroutines.*
-import java.util.*
 import java.lang.Exception
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 
 class MainActivity : Activity() {
 
     private lateinit var flingContainer: SwipeFlingAdapterView
-    private val cardList = mutableListOf<cards>()
+    private val cardList = mutableListOf<cardsOffer>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = cardsAdapter(this@MainActivity, cardList)
+        val adapter = cardsOfferAdapter(this@MainActivity, cardList)
         CoroutineScope(Dispatchers.Main).launch {
             var offers = getOfferCards()
             if (offers.isEmpty()) {
@@ -55,23 +44,31 @@ class MainActivity : Activity() {
             }
             Log.d("Resultado", offers[0].name.toString())
             val offerorImages = mutableListOf<List<ProfileImages>>()
+            val lookerTechs = mutableListOf<List<ObjectTechnologies>>()
             for (offer in offers) {
                 val images = getOfferImages(offer.idOfferor)
                 offerorImages.add(images)
+                val techs = getTechsObject(offer.offerId)
+                lookerTechs.add(techs)
             }
+
             withContext(Dispatchers.Main) {
-                var i = 0;
+                var i = 0
                 for (offer in offers) {
-                    var card = cards(
+                    val card = cardsOffer(
                         offer.offerId,
-                        offerorImages[i][0].imageUrl,
+                        offerorImages[i],
                         offer.name,
-                        offer.description
+                        offer.description,
+                        offer.pay,
+                        offer.schedule,
+                        offer.mode,
+                        lookerTechs[i]
                     )
                     i++
                     cardList.add(card)
-                    adapter.notifyDataSetChanged()
                 }
+                adapter.notifyDataSetChanged()
             }
         }
 
@@ -152,7 +149,10 @@ class MainActivity : Activity() {
 
         flingContainer.setOnItemClickListener(object : SwipeFlingAdapterView.OnItemClickListener {
             override fun onItemClicked(itemPosition: Int, dataObject: Any) {
-                Toast.makeText(this@MainActivity, "Clicked", Toast.LENGTH_SHORT).show()
+                val clickedCard = cardList[itemPosition]
+                val intent = Intent(this@MainActivity, verOffer::class.java)
+                intent.putExtra("cardData", clickedCard)
+                startActivity(intent)
             }
         })
     }
@@ -171,7 +171,7 @@ class MainActivity : Activity() {
         }
     }
 
-    fun postSwipeFillList(adapter: cardsAdapter, swipe: OfferSwipe, list: List<cards>) {
+    fun postSwipeFillList(adapter: cardsOfferAdapter, swipe: OfferSwipe, list: MutableList<cardsOffer>) {
         CoroutineScope(Dispatchers.Main).launch {
             val deferred = CompletableDeferred<Unit>()
 
@@ -194,19 +194,26 @@ class MainActivity : Activity() {
                 Log.d("Resultado", offers[0].name.toString())
 
                 val offerorImages = mutableListOf<List<ProfileImages>>()
+                val lookerTechs = mutableListOf<List<ObjectTechnologies>>()
                 for (offer in offers) {
                     val images = getOfferImages(offer.idOfferor)
                     offerorImages.add(images)
+                    val techs = getTechsObject(offer.offerId)
+                    lookerTechs.add(techs)
                 }
 
                 withContext(Dispatchers.Main) {
                     var i = 0
                     for (offer in offers) {
-                        val card = cards(
+                        val card = cardsOffer(
                             offer.offerId,
-                            offerorImages[i][0].imageUrl,
+                            offerorImages[i],
                             offer.name,
-                            offer.description
+                            offer.description,
+                            offer.pay,
+                            offer.schedule,
+                            offer.mode,
+                            lookerTechs[i]
                         )
                         i++
                         cardList.add(card)
@@ -239,6 +246,21 @@ class MainActivity : Activity() {
             var response = imagesInference.getProfileImagesOfferor(id)
             var images = response.body()
             return images ?: emptyList() // Return the users if the response is not null, otherwise return an empty list
+        } catch (e: Exception) {
+            Log.d("Exception", e.toString())
+            return emptyList() // Return an empty list in case of an exception
+        }
+
+
+    }
+
+    suspend fun getTechsObject(id :String): List<ObjectTechnologies> {
+        var retrofit = retrofitClient.getInstance()
+        var otInterface = retrofit.create(objectTechnologies::class.java)
+        try {
+            var response = otInterface.getTechObj(id)
+            var techs = response.body()
+            return techs ?: emptyList() // Return the users if the response is not null, otherwise return an empty list
         } catch (e: Exception) {
             Log.d("Exception", e.toString())
             return emptyList() // Return an empty list in case of an exception
