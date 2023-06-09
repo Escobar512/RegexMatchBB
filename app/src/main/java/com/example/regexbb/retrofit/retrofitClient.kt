@@ -18,7 +18,7 @@ object retrofitClient {
 
 
         var retrofit: Retrofit = retrofit2.Retrofit.Builder()
-            .baseUrl("http://192.168.100.5:8080/api/")
+            .baseUrl("http://192.168.1.104:8080/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(mOkHttpClient)
             .build()
