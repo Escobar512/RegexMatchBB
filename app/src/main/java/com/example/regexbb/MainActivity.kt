@@ -3,8 +3,10 @@ package com.example.regexbb
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 
 
 import android.widget.Toast
@@ -43,6 +45,13 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var btn_perfil = findViewById<ImageView>(R.id.btn_perfil_dev)
+        var userId = intent.getStringExtra("userId").toString()
+
+        btn_perfil.setOnClickListener(){
+            set_perfil(userId)
+        }
 
         val adapter = cardsAdapter(this@MainActivity, cardList)
         CoroutineScope(Dispatchers.Main).launch {
@@ -155,6 +164,12 @@ class MainActivity : Activity() {
                 Toast.makeText(this@MainActivity, "Clicked", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    fun set_perfil(userId: String){
+        val res = Intent(this, create_perfil::class.java)
+        res.putExtra("userId", userId)
+        startActivity(res)
     }
 
 

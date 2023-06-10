@@ -65,23 +65,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textViewJ"
-                android:layout_width="103dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:text="Lugar"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/CV_Lugar"
-                android:layout_width="228dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
+            android:orientation="horizontal"/>
 
 
         <LinearLayout

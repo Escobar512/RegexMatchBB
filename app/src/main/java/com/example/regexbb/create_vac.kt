@@ -90,11 +90,6 @@ class create_vac : AppCompatActivity() {
         adapterH.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         horario.adapter = adapterH
 
-        val lugar = findViewById<Spinner>(R.id.CV_Lugar)
-        val adapterL = ArrayAdapter(this, android.R.layout.simple_spinner_item, countries)
-        adapterL.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        lugar.adapter = adapterL
-
 
         button_create.setOnClickListener { view ->
             publicar(view, button_create)
@@ -118,7 +113,7 @@ class create_vac : AppCompatActivity() {
             Toast.makeText(this, "Agregue una descripcion", Toast.LENGTH_SHORT).show()
             return
         }
-        val lugar = findViewById<Spinner>(R.id.CV_Lugar).selectedItem.toString()
+
         val mod = findViewById<Spinner>(R.id.CV_modalidad).selectedItem.toString()
         val horario = findViewById<Spinner>(R.id.CV_horario).selectedItem.toString()
 
@@ -128,7 +123,6 @@ class create_vac : AppCompatActivity() {
         offer.offerId = UUID.randomUUID().toString()
         offer.name = titulo
         offer.pay = pay.toDouble()
-        offer.country = lugar
         offer.description = description_t
         offer.mode = mod
         offer.schedule = horario

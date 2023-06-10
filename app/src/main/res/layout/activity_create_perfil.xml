@@ -5,200 +5,181 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".create_perfil">
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="390dp"
-        android:layout_height="500dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135">
 
-        <EditText
-            android:id="@+id/CP_puesto_d"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Puesto deseado" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="128dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text="Edad"
-                android:textSize="16sp" />
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/CP_edad"
-                android:layout_width="237dp"
+                android:id="@+id/CP_puesto_d"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number" />
-        </LinearLayout>
+                android:inputType="textPersonName"
+                android:text="Puesto deseado" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/CP_text_resume">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="184dp"
-                android:id="@+id/CP_resume"
-                tools:text="Resumen" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/CP_escolaridad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Escolaridad" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:text="Edad"
+                    android:textSize="16sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/CP_edad"
+                    android:layout_width="237dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number" />
+            </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/cb_NET"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/CP_text_resume"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/CP_resume"
+                    android:layout_width="match_parent"
+                    android:layout_height="184dp"
+                    tools:text="Resumen" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:id="@+id/CP_escolaridad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Escolaridad" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text=".NET" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/cb_NODE"
-                android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/cb_NET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text=".NET" />
+
+                <CheckBox
+                    android:id="@+id/cb_NODE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Node.JS" />
+
+                <CheckBox
+                    android:id="@+id/cb_ANG"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Angular" />
+
+                <CheckBox
+                    android:id="@+id/cb_JAVA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Java" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Node.JS" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/cb_ANG"
-                android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/cb_ANDR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Android" />
+
+                <CheckBox
+                    android:id="@+id/cb_DOCKER"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Docker" />
+
+                <CheckBox
+                    android:id="@+id/cb_TYPE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Typescript" />
+
+                <CheckBox
+                    android:id="@+id/cb_SQL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="SQL" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Angular" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/cb_JAVA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Java" />
+                <CheckBox
+                    android:id="@+id/cb_CPP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="C++" />
 
+                <CheckBox
+                    android:id="@+id/cb_SPRING"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Spring" />
+
+                <CheckBox
+                    android:id="@+id/cb_CS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="C#" />
+
+                <CheckBox
+                    android:id="@+id/cb_PY"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Python" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_publicar"
+                android:layout_width="178dp"
+                android:layout_height="57dp"
+                android:text="Publicar" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_ANDR"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Android" />
-
-            <CheckBox
-                android:id="@+id/cb_DOCKER"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Docker" />
-
-            <CheckBox
-                android:id="@+id/cb_TYPE"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Typescript" />
-
-            <CheckBox
-                android:id="@+id/cb_SQL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="SQL" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_CPP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="C++" />
-
-            <CheckBox
-                android:id="@+id/cb_SPRING"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Spring" />
-
-            <CheckBox
-                android:id="@+id/cb_CS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="C#" />
-
-            <CheckBox
-                android:id="@+id/cb_PY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Python" />
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button_cv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="CV"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.41" />
-
-    <Button
-        android:id="@+id/button_publicar"
-        android:layout_width="178dp"
-        android:layout_height="57dp"
-        android:text="Publicar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_cv"
-        app:layout_constraintVertical_bias="0.378" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
