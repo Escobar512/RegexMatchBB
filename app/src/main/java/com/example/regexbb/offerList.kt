@@ -25,19 +25,20 @@ class offerList : AppCompatActivity(), OfferAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.offer_list)
         val btn_perfil = findViewById<Button>(R.id.btn_perfil_dev)
-        val btn_chat = findViewById<Button>(R.id.btn_chat_dev)
+        val btn_chat = findViewById<Button>(R.id.btn_cardsmain)
         val btn_add = findViewById<Button>(R.id.btn_add)
 
         val userId = intent.getStringExtra("userId").toString()
+        val userName = intent.getStringExtra("userName").toString()
 
         btn_perfil.setOnClickListener() {
-            view_perfil(userId)
+            view_perfil(userId, userName)
         }
         btn_add.setOnClickListener() { view ->
-            view_add(userId)
+            view_add(userId, userName)
         }
         btn_chat.setOnClickListener() { view ->
-            view_chat(userId)
+            view_chat(userId, userName)
         }
         val offers = mutableListOf<OfferRecycler>()
         CoroutineScope(Dispatchers.Main).launch {
@@ -58,17 +59,17 @@ class offerList : AppCompatActivity(), OfferAdapter.OnItemClickListener {
 
     }
 
-    fun view_perfil(userId: String){
+    fun view_perfil(userId: String, userName: String){
         val intent = Intent(this, EdtiPerfil_EM::class.java)
         intent.putExtra("userId", userId)
         startActivity(intent)
     }
-    fun view_chat(userId: String){
+    fun view_chat(userId: String, userName: String){
         val intent = Intent(this, chatList::class.java)
         intent.putExtra("userId", userId)
         startActivity(intent)
     }
-    fun view_add(userId: String){
+    fun view_add(userId: String, userName: String){
         val intent = Intent(this, create_vac::class.java)
         intent.putExtra("userId", userId)
         startActivity(intent)

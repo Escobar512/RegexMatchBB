@@ -6,24 +6,13 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import com.example.regexbb.interfaces.objectTechnologies
-import com.example.regexbb.interfaces.offer
-import com.example.regexbb.interfaces.offerSwipe
 import com.example.regexbb.models.ObjectTechnologies
 import com.example.regexbb.models.Offer
-import com.example.regexbb.models.OfferSwipe
-import com.example.regexbb.models.ProfileImages
 import com.example.regexbb.retrofit.retrofitClient
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.*
-import org.json.JSONArray
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.lang.Exception
-import java.net.HttpURLConnection
-import java.net.URL
 import java.util.*
-import kotlin.collections.ArrayList
 
 class create_vac : AppCompatActivity() {
     private val commonNamesList: ArrayList<String> = ArrayList()
@@ -76,15 +65,15 @@ class create_vac : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_vac)
-         val button_create = findViewById<Button>(R.id.button_publicar)
+         val button_create = findViewById<Button>(R.id.btn_publicar)
 
-        val modalidad = findViewById<Spinner>(R.id.CV_modalidad)
+        val modalidad = findViewById<Spinner>(R.id.CP_modalidad)
         var itemsM = arrayOf("Presencial", "En linea", "Hibirda")
         var adapterM = ArrayAdapter(this, android.R.layout.simple_spinner_item, itemsM)
         adapterM.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         modalidad.adapter = adapterM
 
-        val horario = findViewById<Spinner>(R.id.CV_horario)
+        val horario = findViewById<Spinner>(R.id.CP_horario)
         val itemsH = arrayOf("Tiempo Completo", "Medio Tiempo")
         val adapterH = ArrayAdapter(this, android.R.layout.simple_spinner_item, itemsH)
         adapterH.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -114,8 +103,8 @@ class create_vac : AppCompatActivity() {
             return
         }
 
-        val mod = findViewById<Spinner>(R.id.CV_modalidad).selectedItem.toString()
-        val horario = findViewById<Spinner>(R.id.CV_horario).selectedItem.toString()
+        val mod = findViewById<Spinner>(R.id.CP_modalidad).selectedItem.toString()
+        val horario = findViewById<Spinner>(R.id.CP_horario).selectedItem.toString()
 
         var offer = Offer()
 

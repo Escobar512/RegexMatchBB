@@ -43,7 +43,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btn_chat_dev"
+            android:id="@+id/btn_cardsmain"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

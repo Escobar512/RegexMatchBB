@@ -83,7 +83,7 @@
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/CV_horario"
+                android:id="@+id/CP_horario"
                 android:layout_width="228dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -104,7 +104,7 @@
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/CV_modalidad"
+                android:id="@+id/CP_modalidad"
                 android:layout_width="244dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -223,7 +223,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_publicar"
+        android:id="@+id/btn_publicar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/buttons"

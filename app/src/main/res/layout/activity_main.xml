@@ -30,7 +30,7 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/btn_chat_dev"
+            android:id="@+id/btn_cardsmain"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,7 +43,7 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/btn_carp"
+            android:id="@+id/btn_chat_dev"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -62,14 +62,18 @@ class Login : AppCompatActivity() {
                 {
                     if (userR.isLooking){
                         val res = Intent(this, MainActivity::class.java)
-                        val id = userR.userId
+                        val id = userR._id
+                        val userName = userR.userName
                         res.putExtra("userId", id)
+                        res.putExtra("userName", userName)
                         startActivity(res)
                     }
                     else{
                         val res = Intent(this, offerList::class.java)
                         val id = userR.userId
                         res.putExtra("userId", id)
+                        val userName = userR.userName
+                        res.putExtra("userName", userName)
                         startActivity(res)
                     }
                 }

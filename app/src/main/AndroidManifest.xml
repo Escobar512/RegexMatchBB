@@ -42,6 +42,9 @@
         <activity
             android:name=".create_vac"
             android:label="Lista de ofertas" />
+        <activity
+            android:name=".create_perfil"
+            android:label="crear/editar perfil" />
 
     </application>
 

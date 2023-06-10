@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 class User {
     @SerializedName("userId")
     val userId: String = ""
+    @SerializedName("_id")
+    val _id: String = ""
 
     @SerializedName("userName")
     var userName: String = ""

@@ -13,7 +13,7 @@
         tools:context=".create_perfil">
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/linearLayout8"
             android:layout_width="390dp"
             android:layout_height="match_parent"
             android:layout_margin="16dp"

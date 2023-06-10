@@ -1,8 +1,6 @@
 package com.example.regexbb
 
 import android.app.Activity
-import android.app.Application
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,29 +9,18 @@ import android.widget.ImageView
 
 import android.widget.Toast
 import androidx.room.Room
-import com.example.data.dao.LookingProfileDAO
 import com.example.data.database.RegexDatabase
-import com.example.data.entity.LookingProfile
 import com.example.regexbb.models.OfferSwipe
-import com.example.regexbb.R
-import com.example.regexbb.cards
-import com.example.regexbb.cardsAdapter
 import com.example.regexbb.interfaces.offer
 import com.example.regexbb.interfaces.offerSwipe
 import com.example.regexbb.interfaces.profileImages
-import com.example.regexbb.interfaces.user
 import com.example.regexbb.models.Offer
 import com.example.regexbb.models.ProfileImages
-import com.example.regexbb.models.User
 import com.example.regexbb.retrofit.retrofitClient
-import com.example.regexbb.sockets.SocketHandler
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
-import io.socket.client.IO
 import kotlinx.coroutines.*
 import java.util.*
 import java.lang.Exception
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 
 class MainActivity : Activity() {
@@ -47,10 +34,14 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
 
         var btn_perfil = findViewById<ImageView>(R.id.btn_perfil_dev)
+        var btn_chat = findViewById<ImageView>(R.id.btn_chat_dev)
         var userId = intent.getStringExtra("userId").toString()
-
+        var userName = intent.getStringExtra("userName").toString()
         btn_perfil.setOnClickListener(){
-            set_perfil(userId)
+            set_perfil(userId, userName)
+        }
+        btn_chat.setOnClickListener(){
+            set_chatdev(userId, userName)
         }
 
         val adapter = cardsAdapter(this@MainActivity, cardList)
@@ -166,9 +157,15 @@ class MainActivity : Activity() {
         })
     }
 
-    fun set_perfil(userId: String){
+    fun set_perfil(userId: String, userName: String){
         val res = Intent(this, create_perfil::class.java)
         res.putExtra("userId", userId)
+        startActivity(res)
+    }
+    fun set_chatdev(userId: String, userName: String){
+        val res = Intent(this, chatList::class.java)
+        res.putExtra("userId", userId)
+        res.putExtra("userName", userName)
         startActivity(res)
     }
 
