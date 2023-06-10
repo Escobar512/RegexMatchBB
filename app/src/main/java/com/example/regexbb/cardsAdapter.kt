@@ -31,7 +31,7 @@ class cardsAdapter(private val context: Context, private val cardList: List<card
 
 
         Glide.with(context)
-            .load(card.getImageUrl())
+            .load(card.getImageUrl()[0].imageUrl)
             .into(view.findViewById<ImageView>(R.id.image))
 
         boundViews[position] = view

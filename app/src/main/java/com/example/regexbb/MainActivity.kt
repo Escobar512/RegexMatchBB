@@ -4,7 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-
+import io.socket.client.Socket
+import com.example.regexbb.sockets.SocketHandler
 
 import android.widget.Toast
 import androidx.room.Room
@@ -18,8 +19,11 @@ import com.example.regexbb.models.ObjectTechnologies
 import com.example.regexbb.models.Offer
 import com.example.regexbb.models.ProfileImages
 import com.example.regexbb.retrofit.retrofitClient
+import com.example.regexbb.sockets.SocketIOService
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import kotlinx.coroutines.*
+import org.json.JSONObject
+import java.io.Console
 import java.lang.Exception
 
 
@@ -27,11 +31,24 @@ class MainActivity : Activity() {
 
     private lateinit var flingContainer: SwipeFlingAdapterView
     private val cardList = mutableListOf<cardsOffer>()
+    private lateinit var socket: Socket
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+//        SocketHandler.setSocket()
+//        socket = SocketHandler.getSocket()
+//        SocketHandler.establishConnection()
+//        val data = JSONObject()
+//        data.put("message", "Hello from client")
+//        socket.emit("client_event", data)
+
+
+        val serviceIntent = Intent(this, SocketIOService::class.java)
+        startService(serviceIntent)
 
         val adapter = cardsOfferAdapter(this@MainActivity, cardList)
         CoroutineScope(Dispatchers.Main).launch {
@@ -87,7 +104,7 @@ class MainActivity : Activity() {
 
             override fun removeFirstObjectInAdapter() {
                 Log.d("LIST", "removed object!")
-                swipe.lookerId = "2"
+                swipe.lookerId = "1"
                 swipe.offerId = cardList[0].getUserId()
                 cardList.removeAt(0)
                 adapter.notifyDataSetChanged()
@@ -157,12 +174,17 @@ class MainActivity : Activity() {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        SocketHandler.closeConnection()
+    }
+
 
     suspend fun getOfferCards(): List<Offer> {
         var retrofit = retrofitClient.getInstance()
         var userInterface = retrofit.create(offer::class.java)
         try {
-            var response = userInterface.getOffersMatched("2")
+            var response = userInterface.getOffersMatched("1")
             var offers = response.body()
             return offers ?: emptyList() // Return the users if the response is not null, otherwise return an empty list
         } catch (e: Exception) {

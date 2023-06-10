@@ -9,12 +9,15 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface offeringProfile {
-    @GET("offeringProfilesEndpoint")
+    @GET("offeringProfileEndpoint")
     suspend fun getAllOfferingProfiles(): Response<List<OfferingProfile>>
 
-    @POST("offeringProfilesEndpoint")
+    @GET("offeringProfileEndpoint/user/{userId}")
+    suspend fun getOfferingProfileByUserId(@Path("userId") userId: String): Response<OfferingProfile>
+
+    @POST("offeringProfileEndpoint")
     suspend fun createOfferingProfile(@Body offeringProfile: OfferingProfile): Response<OfferingProfile>
 
-    @PUT("offeringProfilesEndpoint/{profileId}")
+    @PUT("offeringProfileEndpoint/{profileId}")
     suspend fun updateOfferingProfile(@Path("profileId") profileId: String, @Body offeringProfile: OfferingProfile): Response<OfferingProfile>
 }

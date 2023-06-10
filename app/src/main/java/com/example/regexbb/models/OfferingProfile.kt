@@ -6,6 +6,9 @@ class OfferingProfile {
     @SerializedName("profileId")
     var profileId: String = ""
 
+    @SerializedName("name")
+    var name: String = ""
+
     @SerializedName("userId")
     var userId: String = ""
 
