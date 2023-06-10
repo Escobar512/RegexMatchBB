@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -13,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RegexBB"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".EdtiPerfil_EM"
+            android:exported="false" />
         <activity
 
             android:name=".MessageList"
@@ -32,6 +36,7 @@
              />
 
         <activity
+
             android:name=".verOffer"
             android:label="Offer"
             />
@@ -42,14 +47,23 @@
 <!--            android:name=".MainActivity"-->
 <!--            android:label="Ofertas"-->
 <!--            />-->
+
         <activity
             android:name=".register"
-            android:label="Offer"
-            />
+            android:label="Offer" />
         <activity
             android:name=".offerList"
-            android:label="Lista de ofertas"
-        />
+            android:label="Lista de ofertas" />
+        <activity
+            android:name=".chatList"
+            android:label="Lista de chat" />
+        <activity
+            android:name=".create_vac"
+            android:label="Lista de ofertas" />
+        <activity
+            android:name=".create_perfil"
+            android:label="crear/editar perfil" />
+
 
     </application>
 

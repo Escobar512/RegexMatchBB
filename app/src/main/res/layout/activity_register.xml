@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.06999999" />
 
     <EditText
-        android:id="@+id/user_register_name"
+        android:id="@+id/empresa_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_register_name"
+        app:layout_constraintTop_toBottomOf="@+id/empresa_name"
         app:layout_constraintVertical_bias="0.01999998" />
 
     <EditText
@@ -101,7 +101,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button_registrar"
+        android:id="@+id/btn_crearperfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registrar"
@@ -111,15 +111,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_register_pass"
         app:layout_constraintVertical_bias="0.785" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="134dp"
-        android:layout_height="109dp"
-        app:layout_constraintBottom_toTopOf="@+id/user_register_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@drawable/baseline_person_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

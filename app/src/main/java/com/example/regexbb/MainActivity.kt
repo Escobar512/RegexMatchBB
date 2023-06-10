@@ -4,9 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+
 import io.socket.client.Socket
 import com.example.regexbb.sockets.SocketHandler
-
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.room.Room
 import com.example.data.database.RegexDatabase
@@ -20,6 +21,9 @@ import com.example.regexbb.models.Offer
 import com.example.regexbb.models.ProfileImages
 import com.example.regexbb.retrofit.retrofitClient
 import com.example.regexbb.sockets.SocketIOService
+import com.example.regexbb.models.Offer
+import com.example.regexbb.models.ProfileImages
+import com.example.regexbb.retrofit.retrofitClient
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import kotlinx.coroutines.*
 import org.json.JSONObject
@@ -39,6 +43,7 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
 
 
+
 //        SocketHandler.setSocket()
 //        socket = SocketHandler.getSocket()
 //        SocketHandler.establishConnection()
@@ -51,6 +56,19 @@ class MainActivity : Activity() {
         startService(serviceIntent)
 
         val adapter = cardsOfferAdapter(this@MainActivity, cardList)
+
+        var btn_perfil = findViewById<ImageView>(R.id.btn_perfil_dev)
+        var btn_chat = findViewById<ImageView>(R.id.btn_chat_dev)
+        var userId = intent.getStringExtra("userId").toString()
+        var userName = intent.getStringExtra("userName").toString()
+        btn_perfil.setOnClickListener(){
+            set_perfil(userId, userName)
+        }
+        btn_chat.setOnClickListener(){
+            set_chatdev(userId, userName)
+        }
+
+
         CoroutineScope(Dispatchers.Main).launch {
             var offers = getOfferCards()
             if (offers.isEmpty()) {
@@ -174,9 +192,23 @@ class MainActivity : Activity() {
         })
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         SocketHandler.closeConnection()
+    }
+
+    fun set_perfil(userId: String, userName: String){
+        val res = Intent(this, create_perfil::class.java)
+        res.putExtra("userId", userId)
+        startActivity(res)
+    }
+    
+    fun set_chatdev(userId: String, userName: String){
+        val res = Intent(this, chatList::class.java)
+        res.putExtra("userId", userId)
+        res.putExtra("userName", userName)
+        startActivity(res)
     }
 
 

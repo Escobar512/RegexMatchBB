@@ -3,6 +3,10 @@ package com.example.regexbb.models
 import com.google.gson.annotations.SerializedName
 
 class User {
+    @SerializedName("userId")
+    val userId: String = ""
+    @SerializedName("_id")
+    val _id: String = ""
 
     @SerializedName("userId")
     var userId: String = ""
