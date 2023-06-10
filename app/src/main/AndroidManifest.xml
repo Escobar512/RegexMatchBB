@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.regexbb">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -18,7 +19,8 @@
             android:name=".EdtiPerfil_EM"
             android:exported="false" />
         <activity
-            android:name=".Login"
+
+            android:name=".MessageList"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -27,9 +29,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".MainActivity"
-            android:label="Ofertas" />
+            android:name=".verLooker"
+            android:label="Looker"
+             />
+
+        <activity
+
+            android:name=".verOffer"
+            android:label="Offer"
+            />
+
+        <service android:name=".sockets.SocketIOService" />
+
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:label="Ofertas"-->
+<!--            />-->
+
         <activity
             android:name=".register"
             android:label="Offer" />
@@ -45,6 +63,7 @@
         <activity
             android:name=".create_perfil"
             android:label="crear/editar perfil" />
+
 
     </application>
 

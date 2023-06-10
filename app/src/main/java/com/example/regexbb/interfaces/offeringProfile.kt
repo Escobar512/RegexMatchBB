@@ -12,6 +12,9 @@ interface offeringProfile {
     @GET("offeringProfileEndpoint")
     suspend fun getAllOfferingProfiles(): Response<List<OfferingProfile>>
 
+    @GET("offeringProfileEndpoint/user/{userId}")
+    suspend fun getOfferingProfileByUserId(@Path("userId") userId: String): Response<OfferingProfile>
+
     @POST("offeringProfileEndpoint")
     suspend fun createOfferingProfile(@Body offeringProfile: OfferingProfile): Response<OfferingProfile>
 

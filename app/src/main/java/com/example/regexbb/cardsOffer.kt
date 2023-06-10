@@ -5,38 +5,33 @@ import com.example.regexbb.models.ProfileImages
 import java.io.Serializable
 import java.text.FieldPosition
 
-class cards : Serializable {
+class cardsOffer : Serializable {
     private var userId: String
-    private var imageUrls: List<ProfileImages>
+    private var imagesUrl: List<ProfileImages>
     private var name: String
     private var description: String
-    private var clicked: Boolean
-    private var age: Int
-    private var degree: String
-    private var school: String
-    private var position: String
+    private var pay: Double
+    private var schedule: String
+    private var mode: String
     private var techs: List<ObjectTechnologies>
 
     constructor(
         userId: String,
-        imageUrls: List<ProfileImages>,
+        imagesUrl: List<ProfileImages>,
         name: String,
         description: String,
-        age: Int,
-        degree: String,
-        school: String,
-        position: String,
+        pay: Double,
+        schedule: String,
+        mode: String,
         techs : List<ObjectTechnologies>
     ) {
         this.userId = userId
         this.name = name
-        this.imageUrls = imageUrls
+        this.imagesUrl = imagesUrl
         this.description = description
-        this.age = age
-        this.degree = degree
-        this.school = school
-        this.position = position
-        this.clicked = false
+        this.pay = pay
+        this.schedule = schedule
+        this.mode = mode
         this.techs = techs
     }
 
@@ -48,20 +43,12 @@ class cards : Serializable {
         this.userId = userId
     }
 
-    fun getClicked(): Boolean {
-        return clicked
-    }
-
-    fun setClickedCard(clicked: Boolean) {
-        this.clicked = clicked
-    }
-
     fun getImageUrl(): List<ProfileImages> {
-        return imageUrls
+        return imagesUrl
     }
 
-    fun setImageUrl(imageUrls: List<ProfileImages>) {
-        this.imageUrls = imageUrls
+    fun setImageUrl(imageUrl: List<ProfileImages>) {
+        this.imagesUrl = imageUrl
     }
 
     fun getName(): String {
@@ -80,36 +67,28 @@ class cards : Serializable {
         this.description = description
     }
 
-    fun getAge(): Int {
-        return age
+    fun getPay(): Double {
+        return pay
     }
 
-    fun setAge(age: Int) {
-        this.age = age
+    fun setPay(pay: Double) {
+        this.pay = pay
     }
 
-    fun getDegree(): String {
-        return degree
+    fun getSchedule(): String {
+        return schedule
     }
 
-    fun setDegree(degree: String) {
-        this.degree = degree
+    fun setSchedule(schedule: String) {
+        this.schedule = schedule
     }
 
-    fun getSchool(): String {
-        return school
+    fun getMode(): String {
+        return mode
     }
 
-    fun setSchool(school: String) {
-        this.school = school
-    }
-
-    fun getPosition(): String {
-        return position
-    }
-
-    fun setPosition(position: String) {
-        this.position = position
+    fun setMode(mode: String) {
+        this.mode = mode
     }
 
     fun getTech(): List<ObjectTechnologies> {

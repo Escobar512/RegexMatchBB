@@ -8,15 +8,15 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface chat {
-    @GET("chatsEndpoint")
+    @GET("chatEndpoint")
     suspend fun getAllChats(): Response<List<Chat>>
 
-    @POST("chatsEndpoint")
+    @POST("chatEndpoint")
     suspend fun createChat(@Body chat: Chat): Response<Chat>
 
-    @GET("chatsEndpoint/looker/{lookerId}")
+    @GET("chatEndpoint/looker/{lookerId}")
     suspend fun getChatsByLookerId(@Path("lookerId") lookerId: String): Response<List<Chat>>
 
-    @GET("chatsEndpoint/offerer/{offererId}")
+    @GET("chatEndpoint/offerer/{offererId}")
     suspend fun getChatsByOffererId(@Path("offererId") offererId: String): Response<List<Chat>>
 }

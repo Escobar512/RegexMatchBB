@@ -1,23 +1,24 @@
 package com.example.regexbb
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.room.Room
 import com.example.data.database.RegexDatabase
-import com.example.regexbb.interfaces.lookingProfiles
-import com.example.regexbb.interfaces.offer
-import com.example.regexbb.interfaces.offerSwipe
-import com.example.regexbb.interfaces.profileImages
-import com.example.regexbb.models.LookingProfile
-import com.example.regexbb.models.Offer
-import com.example.regexbb.models.OfferSwipe
-import com.example.regexbb.models.ProfileImages
+import com.example.regexbb.interfaces.*
+import com.example.regexbb.models.*
+import com.example.regexbb.models.Chat
 import com.example.regexbb.retrofit.retrofitClient
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import kotlinx.coroutines.*
 import java.lang.Exception
+import java.time.Instant.now
+import java.time.LocalDate
+import java.time.LocalDate.now
+import java.time.LocalDateTime
+import java.util.*
 
 class LookerCards : Activity() {
 
@@ -31,26 +32,33 @@ class LookerCards : Activity() {
         val adapter = cardsAdapter(this@LookerCards, cardList)
         CoroutineScope(Dispatchers.Main).launch {
             var lookers = getLookerCards()
-            if (lookers.isEmpty()) {
-                lookers = getLookerReCards()
                 if (lookers.isEmpty()) {
-                    return@launch
+                    lookers = getLookerReCards()
+                    if (lookers.isEmpty()) {
+                        return@launch
+                    }
                 }
-            }
-            Log.d("Resultado", lookers[0].name.toString())
-            val loookerImages = mutableListOf<List<ProfileImages>>()
+            val lookerImages = mutableListOf<List<ProfileImages>>()
+            val lookerTechs = mutableListOf<List<ObjectTechnologies>>()
             for (looker in lookers) {
                 val images = getLookerImages(looker.profileId)
-                loookerImages.add(images)
+                lookerImages.add(images)
+                val techs = getTechsObject(looker.profileId)
+                lookerTechs.add(techs)
             }
             withContext(Dispatchers.Main) {
                 var i = 0;
                 for (looker in lookers) {
                     var card = cards(
                         looker.profileId,
-                        loookerImages[i][0].imageUrl,
+                        lookerImages[i],
                         looker.name,
-                        looker.description
+                        looker.description,
+                        looker.age,
+                        looker.degree,
+                        looker.school,
+                        looker.position,
+                        lookerTechs[i]
                     )
                     i++
                     cardList.add(card)
@@ -67,11 +75,12 @@ class LookerCards : Activity() {
         flingContainer.setFlingListener(object : SwipeFlingAdapterView.onFlingListener {
 
             var swipe = OfferSwipe()
-
+            val chatSend = Chat()
             override fun removeFirstObjectInAdapter() {
                 Log.d("LIST", "removed object!")
-                swipe.offerId = "2"
+                swipe.offerId = "b168191a-49ae-4997-8175-4220462e55d1"
                 swipe.lookerId = cardList[0].getUserId()
+                chatSend.lookerId = cardList[0].getUserId()
                 cardList.removeAt(0)
                 adapter.notifyDataSetChanged()
             }
@@ -85,12 +94,14 @@ class LookerCards : Activity() {
 
 
             override fun onRightCardExit(dataObject: Any) {
-                Toast.makeText(this@LookerCards, "Right", Toast.LENGTH_SHORT).show()
-                swipe.swiped = true
-                CoroutineScope(Dispatchers.Main).launch {
-                    postSwipeFillList(adapter, swipe, cardList)
 
-                }
+                chatSend.offererId = "11"
+                chatSend.offerId = "b168191a-49ae-4997-8175-4220462e55d1"
+                chatSend.lastUpdate = Date()
+                chatSend.chatId = UUID.randomUUID().toString()
+                Toast.makeText(this@LookerCards, "Right", Toast.LENGTH_SHORT).show()
+
+                postSwipeOpenChat(adapter, swipe, chatSend, cardList)
             }
 
             override fun onAdapterAboutToEmpty(itemsInAdapter: Int) {
@@ -103,9 +114,10 @@ class LookerCards : Activity() {
 
         flingContainer.setOnItemClickListener(object : SwipeFlingAdapterView.OnItemClickListener {
             override fun onItemClicked(itemPosition: Int, dataObject: Any) {
-                Toast.makeText(this@LookerCards, "Clicked", Toast.LENGTH_SHORT).show()
-                adapter.setClicked(1);
-                adapter.updateCardLayout(itemPosition, true)
+                val clickedCard = cardList[itemPosition]
+                val intent = Intent(this@LookerCards, verLooker::class.java)
+                intent.putExtra("cardData", clickedCard)
+                startActivity(intent)
             }
         })
 
@@ -116,7 +128,7 @@ class LookerCards : Activity() {
         var retrofit = retrofitClient.getInstance()
         var lookerInterface = retrofit.create(lookingProfiles::class.java)
         try {
-            var response = lookerInterface.getLookersMatched("7c1702a0-0642-46ec-be11-c8e622cde202")
+            var response = lookerInterface.getLookersMatched("b168191a-49ae-4997-8175-4220462e55d1")
             var lookers = response.body()
             return lookers ?: emptyList() // Return the users if the response is not null, otherwise return an empty list
         } catch (e: Exception) {
@@ -148,9 +160,12 @@ class LookerCards : Activity() {
                 Log.d("Resultado", lookers[0].name.toString())
 
                 val lookerImages = mutableListOf<List<ProfileImages>>()
+                val lookerTechs = mutableListOf<List<ObjectTechnologies>>()
                 for (looker in lookers) {
                     val images = getLookerImages(looker.profileId)
                     lookerImages.add(images)
+                    val techs = getTechsObject(looker.profileId)
+                    lookerTechs.add(techs)
                 }
 
                 withContext(Dispatchers.Main) {
@@ -158,9 +173,14 @@ class LookerCards : Activity() {
                     for (looker in lookers) {
                         val card = cards(
                             looker.profileId,
-                            lookerImages[i][0].imageUrl,
+                            lookerImages[i],
                             looker.name,
-                            looker.description
+                            looker.description,
+                            looker.age,
+                            looker.degree,
+                            looker.school,
+                            looker.position,
+                            lookerTechs[i]
                         )
                         i++
                         cardList.add(card)
@@ -173,11 +193,71 @@ class LookerCards : Activity() {
         }
     }
 
+
+    fun postSwipeOpenChat(adapter: cardsAdapter, swipe: OfferSwipe, chat: Chat, list: List<cards>) {
+        CoroutineScope(Dispatchers.Main).launch {
+
+            val deferred2 = CompletableDeferred<Unit>()
+
+
+
+            launch(Dispatchers.IO) {
+                val success =  createChat(chat)
+                if (success != null) {
+                    deferred2.complete(Unit)
+                } else {
+                    deferred2.cancel()
+                }
+            }
+
+
+            deferred2.await()
+            if(list.isEmpty()){
+                val lookers = getLookerReCards()
+                if (lookers.isEmpty()) {
+                    return@launch
+                }
+
+                val lookerImages = mutableListOf<List<ProfileImages>>()
+                val lookerTechs = mutableListOf<List<ObjectTechnologies>>()
+                for (looker in lookers) {
+                    val images = getLookerImages(looker.profileId)
+                    lookerImages.add(images)
+                    val techs = getTechsObject(looker.profileId)
+                    lookerTechs.add(techs)
+                }
+
+                withContext(Dispatchers.Main) {
+                    var i = 0
+                    for (looker in lookers) {
+                        val card = cards(
+                            looker.profileId,
+                            lookerImages[i],
+                            looker.name,
+                            looker.description,
+                            looker.age,
+                            looker.degree,
+                            looker.school,
+                            looker.position,
+                            lookerTechs[i]
+                        )
+                        i++
+                        cardList.add(card)
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            }
+
+
+        }
+    }
+
+
     suspend fun getLookerReCards(): List<LookingProfile> {
         var retrofit = retrofitClient.getInstance()
         var lookerInterface = retrofit.create(lookingProfiles::class.java)
         try {
-            var response = lookerInterface.getLookersMatched("7c1702a0-0642-46ec-be11-c8e622cde202")
+            var response = lookerInterface.getLookersMatched("b168191a-49ae-4997-8175-4220462e55d1")
             var lookers = response.body()
             return lookers ?: emptyList() // Return the users if the response is not null, otherwise return an empty list
         } catch (e: Exception) {
@@ -201,15 +281,51 @@ class LookerCards : Activity() {
 
     }
 
+    suspend fun getTechsObject(id :String): List<ObjectTechnologies> {
+        var retrofit = retrofitClient.getInstance()
+        var otInterface = retrofit.create(objectTechnologies::class.java)
+        try {
+            var response = otInterface.getTechObj(id)
+            var techs = response.body()
+            return techs ?: emptyList() // Return the users if the response is not null, otherwise return an empty list
+        } catch (e: Exception) {
+            Log.d("Exception", e.toString())
+            return emptyList() // Return an empty list in case of an exception
+        }
+
+
+    }
+
     suspend fun performOfferSwipe(swipe : OfferSwipe): OfferSwipe? {
         var retrofit = retrofitClient.getInstance()
         var offerSwipeInterface = retrofit.create(offerSwipe::class.java)
 
         try {
-            val response = offerSwipeInterface.createOfferSwipe(swipe)
+            val response = offerSwipeInterface.updateOfferSwipe(swipe)
             if (response.isSuccessful) {
                 var swipeR = response.body()
                 return swipeR
+            } else {
+                Log.d("error", response.errorBody().toString())
+            }
+        } catch (e: Exception) {
+            Log.d("error", e.message.toString())
+
+            return null
+        }
+        return null
+    }
+
+
+    suspend fun createChat(chat : Chat): Chat? {
+        var retrofit = retrofitClient.getInstance()
+        var chatInterface = retrofit.create(com.example.regexbb.interfaces.chat::class.java)
+
+        try {
+            val response = chatInterface.createChat(chat)
+            if (response.isSuccessful) {
+                var chatR = response.body()
+                return chatR
             } else {
                 Log.d("error", response.errorBody().toString())
             }

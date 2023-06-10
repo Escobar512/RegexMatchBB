@@ -15,6 +15,9 @@ interface lookingProfiles {
     @GET("lookingProfileEndpoint/{profileId}")
     suspend fun getLookingProfile(@Path("profileId") profileId: String): Response<LookingProfile>
 
+    @GET("lookingProfileEndpoint/user/{userId}")
+    suspend fun getLookingProfileByUser(@Path("userId") userId: String): Response<LookingProfile>
+
     @GET("lookingProfileEndpoint/offer/{offerId}")
     suspend fun getLookersMatched(@Path("offerId") offerId: String): Response<List<LookingProfile>>
 
