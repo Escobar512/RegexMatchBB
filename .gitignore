@@ -7,6 +7,7 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/src/main/java/com/example/regexbb/retrofit/retrofitCliente.kt
 .DS_Store
 /build
 /captures
